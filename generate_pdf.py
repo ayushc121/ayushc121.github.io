@@ -112,11 +112,16 @@ def esc(text: str) -> str:
 
 
 def paragraphs(text: str) -> str:
-    return "".join(
-        f"<p>{esc(p.strip())}</p>"
-        for p in text.split("\n\n")
-        if p.strip()
-    )
+    import re
+    result = []
+    for p in text.split("\n\n"):
+        p = p.strip()
+        if not p:
+            continue
+        # Escape HTML, then apply **bold** markdown (esc() doesn't touch *)
+        html = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', esc(p))
+        result.append(f"<p>{html}</p>")
+    return "".join(result)
 
 
 # ---------------------------------------------------------------------------
