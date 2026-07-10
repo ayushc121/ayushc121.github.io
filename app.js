@@ -303,7 +303,12 @@ function formatDescription(text) {
     .split(/\n{2,}/)
     .map(p => p.trim())
     .filter(Boolean)
-    .map(p => `<p>${escHtml(p)}</p>`)
+    .map(p => {
+      // Escape HTML first, then apply **bold** markdown
+      let html = escHtml(p);
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      return `<p>${html}</p>`;
+    })
     .join('');
 }
 

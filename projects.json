@@ -1,0 +1,92 @@
+{
+  "portfolio": {
+    "name":     "YOUR NAME",
+    "tagline":  "YOUR TAGLINE",
+    "linkedin": "https://linkedin.com/in/YOUR_HANDLE",
+    "github":   "https://github.com/YOUR_USERNAME",
+    "email":    "you@example.com"
+  },
+  "projects": [
+    {
+      "id":    "drone-frame-fea",
+      "title": "Drone Frame FEA Study",
+      "date":  "Jun 2026",
+      "tags":  ["FEA", "Shape Optimization", "Structural Analysis", "Simulation"],
+      "summary": "Reduced drone airframe weight by over 50% through shape optimization and FEA, arriving at a 0.17 kg polycarbonate frame validated through dynamic collision simulation.",
+      "description": "**What** — A weight minimization study on a multirotor drone airframe, targeting maximum mass reduction while preserving structural integrity and safety margins under realistic loading conditions.\n\n**How** — Applied iterative shape optimization to progressively refine frame geometry, evaluating stress distributions and safety factors at each design iteration. Validated the final design through dynamic event simulation, modeling high-speed collision scenarios to confirm structural integrity under transient impact loads.\n\n**Results** — Reduced frame weight by over 50%, arriving at a final polycarbonate frame of 0.17 kg capable of safely supporting payloads exceeding 2.5 kg with maintained factors of safety. Dynamic collision simulation confirmed structural integrity throughout the impact event.",
+      "hero": "assets/drone-frame-fea/hero.jpg",
+      "media": [
+        { "type": "image", "src": "assets/drone-frame-fea/02.jpg", "caption": "YOUR CAPTION" },
+        { "type": "image", "src": "assets/drone-frame-fea/03.jpg", "caption": "YOUR CAPTION" },
+        { "type": "youtube", "id": "YOUR_VIDEO_ID", "caption": "Dynamic event simulation" }
+      ],
+      "links": {
+        "video": "https://youtube.com/watch?v=YOUR_VIDEO_ID"
+      }
+    },
+    {
+      "id":    "acoustic-drone-detection",
+      "title": "Acoustic Drone Detection System",
+      "date":  "Apr 2026",
+      "tags":  ["Embedded Systems", "C++", "Signal Processing", "Machine Learning", "PyTorch"],
+      "summary": "Built a fully offline acoustic drone detector in 36 hours — a custom circuit, real-time FFT on an ESP32, and an embedded PyTorch model achieving 80% detection accuracy at 15 yards.",
+      "description": "**What** — A low-cost, fully standalone acoustic early-warning sensor for nearby drone detection, designed to operate entirely offline with no cloud or internet dependency.\n\n**How** — Repurposed an 8Ω speaker as a directional microphone through a custom breadboarded circuit. Programmed an ESP32 microcontroller in C++ to perform real-time FFT analysis on the incoming audio stream, driving hardware alerts with zero latency. Trained a PyTorch neural network on drone acoustic signatures, then embedded the quantized model weights directly onto the microcontroller for on-device inference.\n\n**Results** — Achieved 80% drone detection accuracy at 15 yards. The complete system — from circuit design through trained model deployment — was built in 36 hours.",
+      "hero": "assets/acoustic-drone-detection/hero.jpg",
+      "media": [
+        { "type": "image", "src": "assets/acoustic-drone-detection/02.jpg", "caption": "YOUR CAPTION" },
+        { "type": "image", "src": "assets/acoustic-drone-detection/03.jpg", "caption": "YOUR CAPTION" }
+      ],
+      "links": {
+        "github": "https://github.com/YOUR_USERNAME/YOUR_REPO"
+      }
+    },
+    {
+      "id":    "ai-grand-prix",
+      "title": "Anduril Industries AI Grand Prix",
+      "date":  "May 2026 – Present",
+      "tags":  ["Python", "MAVLink", "Computer Vision", "Controls", "Autonomy"],
+      "summary": "Building a fully autonomous drone racing pilot for the Anduril Industries AI Grand Prix — MAVLink comms, computer vision gate detection, state estimation, cascade controllers, and a system ID study to inform the control design.",
+      "description": "**What** — A fully autonomous drone pilot stack built for the Anduril Industries AI Grand Prix competition, designed to navigate a racing course from takeoff to landing without any human input.\n\n**How** — Developed MAVLink communication handlers for telemetry and command, a computer vision pipeline for gate detection, state estimation, and a cascade controller architecture managing thrust and attitude. Conducted a formal system identification study of the drone's flight dynamics to parameterize and tune the control design.\n\n**Results** — Competition in progress. The system achieves stable autonomous flight with real-time gate detection and course navigation. Qualifier round 2 results pending.",
+      "hero": "assets/ai-grand-prix/hero.jpg",
+      "media": [
+        { "type": "image", "src": "assets/ai-grand-prix/02.jpg", "caption": "YOUR CAPTION" },
+        { "type": "image", "src": "assets/ai-grand-prix/03.jpg", "caption": "YOUR CAPTION" }
+      ],
+      "links": {
+        "github": "https://github.com/YOUR_USERNAME/YOUR_REPO"
+      }
+    },
+    {
+      "id":    "3dof-sysid",
+      "title": "3DoF Plane System Identification Study",
+      "date":  "Jan 2026 – May 2026",
+      "tags":  ["Python", "System Identification", "Aerodynamics", "Research"],
+      "summary": "Implemented and validated NASA's SIDPAC system identification framework against a custom Python 3-DoF flight dynamics engine, achieving sub-3% parameter estimation error under noisy, disturbed conditions.",
+      "description": "**What** — A research study evaluating system identification methods for 3-DoF aerodynamic models under noisy and data-limited conditions representative of real flight test environments.\n\n**How** — Reviewed existing literature and implemented NASA's SIDPAC system identification framework. Built a custom Python-based 3-DoF flight dynamics engine to generate controlled, high-fidelity datasets, then used it to simulate eight targeted edge-case scenarios under external disturbances — enabling systematic evaluation of estimator performance across degraded data conditions.\n\n**Results** — Achieved sub-3% parameter estimation error in noisy 3-DoF aerodynamic simulations with external disturbances using the SIDPAC approach. The custom simulation engine improved testing reliability and provided a repeatable benchmark environment for comparing identification methods.",
+      "hero": "assets/3dof-sysid/hero.jpg",
+      "media": [
+        { "type": "image", "src": "assets/3dof-sysid/02.jpg", "caption": "YOUR CAPTION" },
+        { "type": "image", "src": "assets/3dof-sysid/03.jpg", "caption": "YOUR CAPTION" }
+      ],
+      "links": {
+        "github": "https://github.com/YOUR_USERNAME/YOUR_REPO"
+      }
+    },
+    {
+      "id":    "torch-igniter",
+      "title": "Torch Igniter",
+      "date":  "Sep 2025 – May 2026",
+      "tags":  ["Propulsion", "Structural Analysis", "FEA", "Manufacturing"],
+      "summary": "Led integration of an oxygen-based afterburner into a university rocketry club torch igniter, increasing predicted exhaust temperature by 80% while maintaining structural safety margins through hotfire.",
+      "description": "**What** — A torch igniter redesign for a university rocketry club propulsion test system, targeting a significant increase in exhaust temperature without compromising structural safety margins.\n\n**How** — Led the integration of an oxygen-based afterburner into the igniter assembly, performing structural analysis throughout the design process to maintain sufficient factors of safety. Coordinated with team members and club leadership to plan and execute manufacturing and hotfire testing.\n\n**Results** — Increased predicted exhaust temperature by 80% over the baseline design. The redesigned igniter passed hotfire testing with structural integrity and safety margins maintained throughout.",
+      "hero": "assets/torch-igniter/hero.jpg",
+      "media": [
+        { "type": "image", "src": "assets/torch-igniter/02.jpg", "caption": "YOUR CAPTION" },
+        { "type": "image", "src": "assets/torch-igniter/03.jpg", "caption": "YOUR CAPTION" }
+      ],
+      "links": {
+        "video": "https://youtube.com/watch?v=YOUR_VIDEO_ID"
+      }
+    }
+  ]
+}
