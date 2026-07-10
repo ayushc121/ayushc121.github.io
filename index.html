@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Portfolio</title>
+  <meta name="description" content="Project portfolio" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header id="site-header">
+    <div class="header-inner">
+      <a class="header-name" id="header-name" href="#">—</a>
+      <nav class="header-nav">
+        <a id="header-linkedin" href="#" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a id="header-pdf" href="portfolio.pdf" download>PDF</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="hero-eyebrow" id="hero-tagline"></span>
+        <h1 id="hero-name"></h1>
+        <div class="hero-meta">
+          <a id="hero-linkedin" href="#" target="_blank" rel="noopener noreferrer" class="hero-link">LinkedIn ↗</a>
+          <a id="hero-github"   href="#" target="_blank" rel="noopener noreferrer" class="hero-link">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="hero-rule"></div>
+    </section>
+
+    <!-- Project grid -->
+    <section class="projects-section">
+      <div class="section-controls">
+        <span class="section-label">Projects</span>
+        <div class="filter-bar" id="filter-bar"></div>
+      </div>
+      <div class="projects-grid" id="projects-grid">
+        <!-- populated by app.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-inner">
+      <span id="footer-copy"></span>
+      <div class="footer-links">
+        <a id="footer-linkedin" href="#" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a id="footer-email" href="#"></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ PROJECT MODAL ============ -->
+  <div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project detail">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
