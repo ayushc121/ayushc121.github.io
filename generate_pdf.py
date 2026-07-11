@@ -252,7 +252,8 @@ body {
 /* ---- Page wrapper ---- */
 .project-page {
   width: 210mm;
-  height: 297mm;
+  min-height: 297mm;
+  max-height: 297mm;
   padding: 15mm 18mm 13mm;
   display: flex;
   flex-direction: column;
@@ -332,9 +333,7 @@ body {
   font-size: 8.5pt;
   line-height: 1.62;
   margin-bottom: 10pt;
-  flex-shrink: 1;
-  min-height: 0;
-  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .description p + p { margin-top: 4pt; }
@@ -351,8 +350,6 @@ body {
   gap: 6pt;
   margin-bottom: 9pt;
   flex-shrink: 1;
-  min-height: 0;
-  max-height: 72mm;
   overflow: hidden;
 }
 
@@ -360,14 +357,13 @@ body {
   width: calc(50% - 3pt);
   overflow: hidden;
   flex-shrink: 1;
-  min-height: 0;
 }
 
-/* Images preserve natural aspect ratio, hard-capped per-image */
+/* Images preserve natural aspect ratio, capped so they don't blow out the page */
 .media-cell img {
   width: 100%;
   height: auto;
-  max-height: 33mm;
+  max-height: 42mm;
   object-fit: contain;
   object-position: left top;
   display: block;
