@@ -17,8 +17,7 @@
       "hero": "assets/ShapeOpt.jpg",
       "media": [
         { "type": "image", "src": "assets/OptStress.jpg", "caption": "Stress Analysis of Optimized Frame" },
-        { "type": "image", "src": "assets/NaiveStress.jpg", "caption": "Stress Analysis of Naive Frame" },
-        { "type": "youtube", "id": "gPhkBMU2XXw", "caption": "Dynamic Event Simulation" }
+        { "type": "image", "src": "assets/NaiveStress.jpg", "caption": "Stress Analysis of Naive Frame" }
       ],
       "links": {
         "video": "https://youtube.com/watch?v=gPhkBMU2XXw"
@@ -33,8 +32,7 @@
       "description": "**What** — A low-cost, fully standalone acoustic early-warning sensor for nearby drone detection, designed to operate entirely offline with no cloud or internet dependency.\n\n**How** — Repurposed an 8Ω speaker as a directional microphone through a custom breadboarded circuit. Programmed an ESP32 microcontroller in C++ to perform real-time FFT analysis on the incoming audio stream, driving hardware alerts with zero latency. Trained a PyTorch neural network on drone acoustic signatures, then embedded the quantized model weights directly onto the microcontroller for on-device inference.\n\n**Results** — Achieved 80% drone detection accuracy at 15 yards. The complete system (from circuit design through trained model deployment) was built in 36 hours.",
       "hero": "assets/AudioCloseUp.jpg",
       "media": [
-        { "type": "image", "src": "assets/AudioDetection.jpg", "caption": "Successful Detection of Drone Audio" },
-        { "type": "youtube", "id": "E8IrfMaYsBM", "caption": "Hackathon Video" }
+        { "type": "image", "src": "assets/AudioDetection.jpg", "caption": "Successful Detection of Drone Audio" }
       ],
       "links": {
         "github": "https://github.com/ayushc121/starkHacks",
@@ -51,8 +49,7 @@
       "hero": "assets/AndurilGPHero.png",
       "media": [
         { "type": "image", "src": "assets/OE-Analysis.png", "caption": "System Identification Diagnostic Plot" },
-        { "type": "image", "src": "assets/ParameterStudy.png", "caption": "Multi-Regime Parameter Visualization" },
-        { "type": "youtube", "id": "HfdJw55CZkQ", "caption": "Flight Video" }
+        { "type": "image", "src": "assets/ParameterStudy.png", "caption": "Multi-Regime Parameter Visualization" }
       ],
       "links": {
         "github": "https://github.com/ayushc121/AndurilGP",
@@ -70,9 +67,7 @@
       "media": [
         { "type": "image", "src": "assets/state_comparison_clean data.png", "caption": "Perfect Identification Under Ideal Conditions" },
         { "type": "image", "src": "assets/state_comparison_aggressive-nogust-noactuator.png", "caption": "Good Accuracy Under Realistic Conditions" },
-        { "type": "image", "src": "assets/state_comparison_aggressive-nogust-actuator.png", "caption": "Moderate Accuracy Under Bad Conditions" },
-        { "type": "youtube", "id": "ov8d1u_JZXE", "caption": "Early-Stage Presentation" }
-
+        { "type": "image", "src": "assets/state_comparison_aggressive-nogust-actuator.png", "caption": "Moderate Accuracy Under Bad Conditions" }
       ],
       "links": {
         "github": "https://github.com/ayushc121/3dofSysID",
