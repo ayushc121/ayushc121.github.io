@@ -89,7 +89,7 @@
       "description": "**What** — A torch igniter redesign for a university rocketry club propulsion test system, targeting a significant increase in exhaust temperature without compromising structural safety margins.\n\n**How** — Led the integration of an oxygen-based afterburner into the igniter assembly, performing structural analysis throughout the design process to maintain sufficient factors of safety. Coordinated with team members and club leadership to plan and execute manufacturing and hotfire testing.\n\n**Results** — Increased predicted exhaust temperature by 80% over the baseline design. The redesigned igniter passed hotfire testing with structural integrity and safety margins maintained throughout.",
       "hero": "assets/torchReal.jpg",
       "media": [
-        { "type": "image", "src": "assets/TorchModels.png", "caption": "CAD Model Views" },
+        { "type": "image", "src": "assets/TorchModels.png", "caption": "CAD Model Views" }
       ],
       "links": {
         
