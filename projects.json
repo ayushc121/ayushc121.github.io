@@ -1,10 +1,10 @@
 {
   "portfolio": {
-    "name":     "YOUR NAME",
-    "tagline":  "YOUR TAGLINE",
-    "linkedin": "https://linkedin.com/in/YOUR_HANDLE",
-    "github":   "https://github.com/YOUR_USERNAME",
-    "email":    "you@example.com"
+    "name":     "Ayush Chaurasia",
+    "tagline":  "Aeronautical and Astronautical Engineering at Purdue",
+    "linkedin": "https://linkedin.com/in/ayushchau12",
+    "github":   "https://github.com/ayushc121",
+    "email":    "chauras0@purdue.edu"
   },
   "projects": [
     {
