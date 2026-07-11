@@ -129,6 +129,9 @@ def render_project_page(proj: dict, index: int, portfolio: dict) -> str:
             hero_html = f'<img class="hero-img" src="{uri}" alt="{esc(title)}" />'
 
     # --- Media grid (up to 4 items; skip if it's the hero image) ---
+    # Cells are arranged into a 2-col <table>. Table layout is the most
+    # reliable 2-column approach in WeasyPrint; flex-wrap rows can escape
+    # overflow:hidden and overlap text below.
     media_cells = []
     for item in media_items:
         if len(media_cells) >= 4:
@@ -136,43 +139,48 @@ def render_project_page(proj: dict, index: int, portfolio: dict) -> str:
 
         itype   = item.get("type")
         caption = item.get("caption", "")
-        cap_html = f'<p class="caption">{esc(caption)}</p>' if caption else ""
+        cap_html = f'<span class="caption">{esc(caption)}</span>' if caption else ""
 
         if itype == "image":
-            # Skip if already used as hero
             if item.get("src") == hero_src:
                 continue
             uri = image_to_data_uri(item["src"])
             if uri:
-                media_cells.append(f'''
-<div class="media-cell">
-  <img src="{uri}" alt="{esc(caption)}" />
-  {cap_html}
-</div>''')
+                cell = (f'<div class="media-cell">'
+                        f'<img src="{uri}" alt="{esc(caption)}" />'
+                        f'{cap_html}</div>')
+                media_cells.append(cell)
 
         elif itype == "youtube":
             vid_id    = item.get("id", "")
             watch_url = youtube_url(vid_id)
-            # No thumbnail, no QR — just a styled link block
-            media_cells.append(f'''
-<div class="media-cell video-cell">
-  {cap_html}
-  <p class="video-url">{esc(watch_url)}</p>
-</div>''')
+            cell = (f'<div class="media-cell video-cell">'
+                    f'{cap_html}'
+                    f'<span class="video-url">{esc(watch_url)}</span>'
+                    f'</div>')
+            media_cells.append(cell)
 
         elif itype == "vimeo":
             vid_id    = item.get("id", "")
             watch_url = vimeo_url(vid_id)
-            media_cells.append(f'''
-<div class="media-cell video-cell">
-  {cap_html}
-  <p class="video-url">{esc(watch_url)}</p>
-</div>''')
+            cell = (f'<div class="media-cell video-cell">'
+                    f'{cap_html}'
+                    f'<span class="video-url">{esc(watch_url)}</span>'
+                    f'</div>')
+            media_cells.append(cell)
 
     media_html = ""
     if media_cells:
-        cells_html = "\n".join(media_cells)
-        media_html = f'<div class="media-grid">{cells_html}</div>'
+        # Pack cells into rows of 2 using a <table>
+        rows = []
+        for i in range(0, len(media_cells), 2):
+            pair = media_cells[i:i+2]
+            tds = "".join(f"<td>{c}</td>" for c in pair)
+            if len(pair) == 1:
+                tds += "<td></td>"
+            rows.append(f"<tr>{tds}</tr>")
+        table_html = "<table>" + "".join(rows) + "</table>"
+        media_html = f'<div class="media-grid">{table_html}</div>'
 
     # --- Links: show label + plain URL text (no QR) ---
     LINK_LABELS = {
@@ -249,34 +257,36 @@ body {
   background: white;
 }
 
+/*
+ * Block layout — WeasyPrint handles normal block flow far more reliably
+ * than flexbox columns. overflow:hidden clips anything that runs long.
+ * All flex usage below is limited to single-row horizontal bars where
+ * WeasyPrint's flex support is stable.
+ */
+
 /* ---- Page wrapper ---- */
 .project-page {
   width: 210mm;
-  min-height: 297mm;
-  max-height: 297mm;
-  padding: 15mm 18mm 13mm;
-  display: flex;
-  flex-direction: column;
+  height: 297mm;
+  padding: 12mm 18mm 10mm;
   overflow: hidden;
   background: white;
   page-break-after: always;
 }
 
-/* ---- Page header ---- */
+/* ---- Page header (single row — flex is fine here) ---- */
 .page-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   border-bottom: 0.4pt solid #111;
-  padding-bottom: 7pt;
-  margin-bottom: 11pt;
-  flex-shrink: 0;
+  padding-bottom: 5pt;
+  margin-bottom: 8pt;
 }
 
 .annotation, .owner-name {
   font-family: 'Courier New', Courier, monospace;
   font-size: 6.5pt;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   color: #888;
 }
 
@@ -285,157 +295,157 @@ body {
   font-family: 'Courier New', Courier, monospace;
   font-size: 6.5pt;
   color: #999;
-  margin-bottom: 4pt;
-  letter-spacing: 0.05em;
-  flex-shrink: 0;
+  margin-bottom: 2pt;
 }
 
 .title {
-  font-size: 24pt;
+  font-size: 22pt;
   font-weight: 700;
   line-height: 1.08;
-  letter-spacing: -0.02em;
-  margin-bottom: 8pt;
-  flex-shrink: 0;
+  margin-bottom: 6pt;
 }
 
+/*
+ * Tags — inline-block on each tag with margin-right/bottom replaces
+ * flex gap, which WeasyPrint renders incorrectly (adds huge whitespace).
+ */
 .tags-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4pt;
-  margin-bottom: 11pt;
-  flex-shrink: 0;
+  margin-bottom: 8pt;
+  /* clearfix so block flow continues below floated tags */
+  overflow: hidden;
 }
 
 .tag {
+  display: inline-block;
   font-family: 'Courier New', Courier, monospace;
   font-size: 6pt;
-  letter-spacing: 0.04em;
-  padding: 1.5pt 4pt;
+  padding: 1pt 4pt;
   border: 0.4pt solid #bbb;
   color: #777;
+  margin-right: 3pt;
+  margin-bottom: 2pt;
 }
 
 /* ---- Hero image — natural aspect ratio, capped height ---- */
 .hero-img {
+  display: block;
   width: 100%;
   height: auto;
-  max-height: 65mm;
+  max-height: 58mm;
   object-fit: contain;
-  object-position: left center;
-  display: block;
-  margin-bottom: 10pt;
-  flex-shrink: 0;
+  object-position: left top;
+  margin-bottom: 7pt;
 }
 
 /* ---- Description ---- */
 .description {
   font-size: 8.5pt;
-  line-height: 1.62;
-  margin-bottom: 10pt;
-  flex-shrink: 0;
+  line-height: 1.55;
+  margin-bottom: 7pt;
 }
 
-.description p + p { margin-top: 4pt; }
+.description p + p { margin-top: 3pt; }
 
-/* ---- Media grid (2-column flexbox) ---- */
 /*
- * WeasyPrint does not reliably clip overflow on flex-wrap containers.
- * Fix: explicit max-height + overflow:hidden on the grid itself,
- * and min-height:0 on every flex child so shrinking actually works.
+ * Media grid — table layout is the most reliable 2-column layout in
+ * WeasyPrint; flex-wrap can create rows that escape overflow:hidden.
+ * max-height + overflow:hidden on the wrapper caps total grid height.
  */
 .media-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6pt;
-  margin-bottom: 9pt;
-  flex-shrink: 1;
+  width: 100%;
+  max-height: 68mm;
+  overflow: hidden;
+  margin-bottom: 6pt;
+}
+
+.media-grid table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 5pt 0;
+}
+
+.media-grid td {
+  width: 50%;
+  vertical-align: top;
+  padding: 0;
   overflow: hidden;
 }
 
-.media-cell {
-  width: calc(50% - 3pt);
-  overflow: hidden;
-  flex-shrink: 1;
-}
-
-/* Images preserve natural aspect ratio, capped so they don't blow out the page */
+/* Images preserve natural aspect ratio, capped per-image */
 .media-cell img {
+  display: block;
   width: 100%;
   height: auto;
-  max-height: 42mm;
+  max-height: 30mm;
   object-fit: contain;
   object-position: left top;
-  display: block;
+}
+
+/* Second row of images (3rd and 4th media items) */
+.media-grid tr + tr td {
+  padding-top: 4pt;
 }
 
 .caption {
+  display: block;
   font-family: 'Courier New', Courier, monospace;
   font-size: 5.5pt;
   color: #999;
-  margin-top: 3pt;
-  letter-spacing: 0.02em;
+  margin-top: 2pt;
 }
 
 /* ---- Video cells (no thumbnail, no QR) ---- */
 .video-cell {
   border: 0.4pt solid #ddd;
-  padding: 6pt;
-  display: flex;
-  flex-direction: column;
-  gap: 4pt;
-  justify-content: center;
-  min-height: 16mm;
+  padding: 5pt;
 }
 
 .video-url {
+  display: block;
   font-family: 'Courier New', Courier, monospace;
   font-size: 5.5pt;
   color: #444;
   word-break: break-all;
+  margin-top: 2pt;
 }
 
-/* ---- Links row — label + plain URL ---- */
+/* ---- Links row ---- */
 .links-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5pt;
-  margin-top: auto;
-  padding-top: 8pt;
   border-top: 0.4pt solid #ddd;
-  margin-bottom: 7pt;
-  flex-shrink: 0;
+  padding-top: 6pt;
+  margin-bottom: 5pt;
+  overflow: hidden; /* clearfix */
 }
 
+/*
+ * inline-block replaces inline-flex — WeasyPrint renders inline-flex
+ * spans as block-level, which creates the large bordered boxes.
+ */
 .link-btn {
+  display: inline-block;
   font-family: 'Courier New', Courier, monospace;
   font-size: 6.5pt;
-  letter-spacing: 0.04em;
-  padding: 2.5pt 7pt;
+  padding: 2pt 6pt;
   border: 0.4pt solid #111;
   color: #111;
-  display: inline-flex;
-  align-items: center;
-  gap: 4pt;
+  margin-right: 4pt;
+  white-space: nowrap;
 }
 
 .link-url {
   color: #555;
   font-size: 5.5pt;
-  letter-spacing: 0;
 }
 
-/* ---- Page footer ---- */
+/* ---- Page footer (single row — flex fine here) ---- */
 .page-footer {
   display: flex;
   justify-content: space-between;
-  padding-top: 5pt;
+  padding-top: 4pt;
   border-top: 0.4pt solid #111;
   font-family: 'Courier New', Courier, monospace;
   font-size: 6pt;
   color: #aaa;
-  letter-spacing: 0.03em;
-  flex-shrink: 0;
 }
 """
 
