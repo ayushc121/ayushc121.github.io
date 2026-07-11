@@ -339,6 +339,11 @@ body {
 .description p + p { margin-top: 4pt; }
 
 /* ---- Media grid (2-column flexbox) ---- */
+/*
+ * WeasyPrint does not reliably clip overflow on flex-wrap containers.
+ * Fix: explicit max-height + overflow:hidden on the grid itself,
+ * and min-height:0 on every flex child so shrinking actually works.
+ */
 .media-grid {
   display: flex;
   flex-wrap: wrap;
