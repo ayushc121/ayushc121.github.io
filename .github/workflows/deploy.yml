@@ -53,7 +53,7 @@ jobs:
 
       # 5. Generate portfolio.pdf from projects.json
       - name: Generate PDF
-        run: python generate_pdf.py --output portfolio.pdf
+        run: python generate_pdf.py --output ayush_chaurasia_portfolio.pdf
 
       # 6. Commit the freshly generated PDF back to the repo so the
       #    "Download PDF" link in the header always points to the latest version
