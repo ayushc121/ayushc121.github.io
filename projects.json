@@ -37,7 +37,7 @@
         { "type": "youtube", "id": "E8IrfMaYsBM", "caption": "Hackathon Video" }
       ],
       "links": {
-        "github": "https://github.com/ayushc121/starkHacks"
+        "github": "https://github.com/ayushc121/starkHacks",
         "video": "https://www.youtube.com/watch?v=E8IrfMaYsBM"
       }
     },
@@ -55,7 +55,7 @@
         { "type": "youtube", "id": "HfdJw55CZkQ", "caption": "Flight Video" }
       ],
       "links": {
-        "github": "https://github.com/ayushc121/AndurilGP"
+        "github": "https://github.com/ayushc121/AndurilGP",
         "video": "https://www.youtube.com/watch?v=HfdJw55CZkQ"
       }
     },
@@ -75,7 +75,7 @@
 
       ],
       "links": {
-        "github": "https://github.com/ayushc121/3dofSysID"
+        "github": "https://github.com/ayushc121/3dofSysID",
         "video": "https://www.youtube.com/watch?v=ov8d1u_JZXE"
 
       }
