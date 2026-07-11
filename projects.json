@@ -37,7 +37,7 @@
         { "type": "youtube", "id": "E8IrfMaYsBM", "caption": "Hackathon Video" }
       ],
       "links": {
-        "github": "https://github.com/ayushc121/starkHacks"
+        "github": "https://github.com/ayushc121/starkHacks",
         "video": "https://www.youtube.com/watch?v=E8IrfMaYsBM"
       }
     },
@@ -55,7 +55,7 @@
         { "type": "youtube", "id": "HfdJw55CZkQ", "caption": "Flight Video" }
       ],
       "links": {
-        "github": "https://github.com/ayushc121/AndurilGP"
+        "github": "https://github.com/ayushc121/AndurilGP",
         "video": "https://www.youtube.com/watch?v=HfdJw55CZkQ"
       }
     },
@@ -75,7 +75,7 @@
 
       ],
       "links": {
-        "github": "https://github.com/ayushc121/3dofSysID"
+        "github": "https://github.com/ayushc121/3dofSysID",
         "video": "https://www.youtube.com/watch?v=ov8d1u_JZXE"
 
       }
@@ -89,7 +89,7 @@
       "description": "**What** — A torch igniter redesign for a university rocketry club propulsion test system, targeting a significant increase in exhaust temperature without compromising structural safety margins.\n\n**How** — Led the integration of an oxygen-based afterburner into the igniter assembly, performing structural analysis throughout the design process to maintain sufficient factors of safety. Coordinated with team members and club leadership to plan and execute manufacturing and hotfire testing.\n\n**Results** — Increased predicted exhaust temperature by 80% over the baseline design. The redesigned igniter passed hotfire testing with structural integrity and safety margins maintained throughout.",
       "hero": "assets/torchReal.jpg",
       "media": [
-        { "type": "image", "src": "assets/TorchModels.png", "caption": "CAD Model Views" },
+        { "type": "image", "src": "assets/TorchModels.png", "caption": "CAD Model Views" }
       ],
       "links": {
         
