@@ -268,10 +268,11 @@ body {
 .project-page {
   width: 210mm;
   height: 297mm;
-  padding: 12mm 18mm 10mm;
+  padding: 12mm 18mm 16mm; /* extra bottom keeps content above the footer */
   overflow: hidden;
   background: white;
   page-break-after: always;
+  position: relative;
 }
 
 /* ---- Page header (single row — flex is fine here) ---- */
@@ -353,7 +354,7 @@ body {
  */
 .media-grid {
   width: 100%;
-  max-height: 68mm;
+  max-height: 88mm;
   overflow: hidden;
   margin-bottom: 6pt;
 }
@@ -376,7 +377,7 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 30mm;
+  max-height: 40mm;
   object-fit: contain;
   object-position: left top;
 }
@@ -437,8 +438,12 @@ body {
   font-size: 5.5pt;
 }
 
-/* ---- Page footer (single row — flex fine here) ---- */
+/* ---- Page footer — locked to bottom of page ---- */
 .page-footer {
+  position: absolute;
+  bottom: 10mm;
+  left: 18mm;
+  right: 18mm;
   display: flex;
   justify-content: space-between;
   padding-top: 4pt;
