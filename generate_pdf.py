@@ -354,7 +354,7 @@ body {
  */
 .media-grid {
   width: 100%;
-  max-height: 88mm;
+  max-height: 118mm;
   overflow: hidden;
   margin-bottom: 6pt;
 }
@@ -377,7 +377,7 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 40mm;
+  max-height: 55mm;
   object-fit: contain;
   object-position: left top;
 }

@@ -28,7 +28,7 @@
       "title": "Acoustic Drone Detection System",
       "date":  "Apr 2026",
       "tags":  ["Embedded Systems", "C++", "Signal Processing", "Machine Learning", "PyTorch", "Prototyping"],
-      "summary": "Built a fully offline acoustic drone detector in 36 hours — a custom circuit, real-time FFT on an ESP32, and an embedded PyTorch model achieving 80% detection accuracy at 15 yards.",
+      "summary": "Built a fully offline acoustic drone detector in 36 hours: a custom circuit, real-time FFT on an ESP32, and an embedded PyTorch model achieving 80% detection accuracy at 15 yards.",
       "description": "**What** — A low-cost, fully standalone acoustic early-warning sensor for nearby drone detection, designed to operate entirely offline with no cloud or internet dependency.\n\n**How** — Repurposed an 8Ω speaker as a directional microphone through a custom breadboarded circuit. Programmed an ESP32 microcontroller in C++ to perform real-time FFT analysis on the incoming audio stream, driving hardware alerts with zero latency. Trained a PyTorch neural network on drone acoustic signatures, then embedded the quantized model weights directly onto the microcontroller for on-device inference.\n\n**Results** — Achieved 80% drone detection accuracy at 15 yards. The complete system (from circuit design through trained model deployment) was built in 36 hours.",
       "hero": "assets/AudioCloseUp.jpg",
       "media": [
@@ -44,7 +44,7 @@
       "title": "Anduril Industries AI Grand Prix",
       "date":  "May 2026 – Present",
       "tags":  ["State Estimation", "GNC", "Computer Vision", "Sensor Fusion", "System Identification"],
-      "summary": "Building a fully autonomous drone racing pilot for the Anduril Industries AI Grand Prix — MAVLink comms, computer vision gate detection, state estimation, cascade controllers, and a system ID study to inform the control design.",
+      "summary": "Building a fully autonomous drone racing pilot for the Anduril Industries AI Grand Prix: MAVLink comms, computer vision gate detection, state estimation, cascade controllers, and a system ID study to inform the control design.",
       "description": "**What** — A fully autonomous drone pilot stack built for the Anduril Industries AI Grand Prix competition, designed to navigate a racing course from takeoff to landing without any human input.\n\n**How** — Developed MAVLink communication handlers for telemetry and command, a computer vision pipeline for gate detection, state estimation, and a cascade controller architecture managing thrust and attitude. Conducted a formal system identification study of the drone's flight dynamics to parameterize and tune the control design.\n\n**Results** — Competition in progress. The system achieves stable autonomous flight with real-time gate detection and course navigation. Qualifier round 2 results pending.",
       "hero": "assets/AndurilGPHero.png",
       "media": [
