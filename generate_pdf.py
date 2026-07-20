@@ -9,7 +9,7 @@ Usage:
     python generate_pdf.py --json path/to/projects.json
 
 Requirements (Python 3.10+):
-    pip install weasyprint requests
+    pip install weasyprint requests Pillow
 """
 
 import json
@@ -27,8 +27,16 @@ try:
     from weasyprint import HTML
 except ImportError as e:
     print(f"Missing dependency: {e}")
-    print("Run: pip install weasyprint requests")
+    print("Run: pip install weasyprint requests Pillow")
     sys.exit(1)
+
+try:
+    from PIL import Image as PilImage
+    _PILLOW_AVAILABLE = True
+except ImportError:
+    print("⚠ Pillow not found — images will not be compressed.")
+    print("  Run: pip install Pillow")
+    _PILLOW_AVAILABLE = False
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -40,9 +48,49 @@ SCRIPT_DIR = Path(__file__).parent.resolve()
 # Image utilities
 # ---------------------------------------------------------------------------
 
+# Maximum pixel width before downscaling. Height is always derived from the
+# original aspect ratio — nothing is cropped or distorted.
+IMAGE_MAX_WIDTH_PX = 1200
+# JPEG quality for recompression (1-95). 72 is a good balance of quality
+# vs size; raise to 85 for higher fidelity, lower to 60 for smaller files.
+IMAGE_JPEG_QUALITY = 72
+
+
+def compress_image_bytes(raw: bytes) -> bytes:
+    """
+    Resize and recompress image bytes using Pillow.
+    - Downscales to IMAGE_MAX_WIDTH_PX if wider (aspect ratio preserved, no crop)
+    - Converts to RGB and re-encodes as JPEG at IMAGE_JPEG_QUALITY
+    - Returns original bytes unchanged if Pillow is unavailable or on error
+    """
+    if not _PILLOW_AVAILABLE:
+        return raw
+
+    import io
+    try:
+        img = PilImage.open(io.BytesIO(raw))
+
+        # Downscale only if wider than the cap — thumbnail() never upscales
+        # and always preserves the original aspect ratio exactly.
+        if img.width > IMAGE_MAX_WIDTH_PX:
+            img.thumbnail((IMAGE_MAX_WIDTH_PX, IMAGE_MAX_WIDTH_PX * 9999),
+                          PilImage.LANCZOS)
+
+        # JPEG requires RGB; handles RGBA, palette, greyscale images safely.
+        if img.mode != "RGB":
+            img = img.convert("RGB")
+
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=IMAGE_JPEG_QUALITY, optimize=True)
+        return buf.getvalue()
+    except Exception as exc:
+        print(f"  ⚠ Pillow compression failed ({exc}), using original bytes")
+        return raw
+
+
 def image_to_data_uri(path_or_url: str) -> str | None:
     """
-    Fetch a local file or URL and return a base64 data URI.
+    Fetch a local file or URL, compress it, and return a base64 data URI.
     Returns None on failure (warning is printed).
     """
     MIME = {
@@ -55,9 +103,9 @@ def image_to_data_uri(path_or_url: str) -> str | None:
         try:
             r = requests.get(path_or_url, timeout=12)
             r.raise_for_status()
-            ct = r.headers.get("content-type", "image/jpeg").split(";")[0].strip()
-            data = base64.b64encode(r.content).decode()
-            return f"data:{ct};base64,{data}"
+            raw = compress_image_bytes(r.content)
+            data = base64.b64encode(raw).decode()
+            return f"data:image/jpeg;base64,{data}"
         except Exception as exc:
             print(f"  ⚠ Could not fetch image: {path_or_url} ({exc})")
             return None
@@ -66,9 +114,9 @@ def image_to_data_uri(path_or_url: str) -> str | None:
         if not full.exists():
             print(f"  ⚠ Image not found: {full}")
             return None
-        ct = MIME.get(full.suffix.lower(), "image/jpeg")
-        data = base64.b64encode(full.read_bytes()).decode()
-        return f"data:{ct};base64,{data}"
+        raw = compress_image_bytes(full.read_bytes())
+        data = base64.b64encode(raw).decode()
+        return f"data:image/jpeg;base64,{data}"
 
 
 def youtube_url(video_id: str) -> str:
@@ -354,7 +402,7 @@ body {
  */
 .media-grid {
   width: 100%;
-  max-height: 118mm;
+  max-height: 88mm;
   overflow: hidden;
   margin-bottom: 6pt;
 }
@@ -377,7 +425,7 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 55mm;
+  max-height: 40mm;
   object-fit: contain;
   object-position: left top;
 }
